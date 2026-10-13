@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uncle Tom — Premium Stargazing Experiences</title>
+  <meta name="description" content="Discover and book premium observatories, telescopes, astronomy events and guided stargazing experiences under the world's clearest skies." />
+  <meta name="theme-color" content="#05060f" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%238b5cf6'/><stop offset='1' stop-color='%2322d3ee'/></linearGradient></defs><circle cx='32' cy='32' r='30' fill='%2305060f' stroke='url(%23g)' stroke-width='3'/><path d='M32 14l4 14 14 4-14 4-4 14-4-14-14-4 14-4z' fill='%23f5d48a'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Animated starfield background -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="#/" class="brand" aria-label="Uncle Tom home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><circle cx="20" cy="20" r="18" fill="none" stroke="url(#bm)" stroke-width="1.6"/><ellipse cx="20" cy="20" rx="18" ry="6" fill="none" stroke="url(#bm)" stroke-width="1" opacity=".55" transform="rotate(-25 20 20)"/><path d="M20 9l2.4 8.6L31 20l-8.6 2.4L20 31l-2.4-8.6L9 20l8.6-2.4z" fill="#f5d48a"/></svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">UNCLE TOM</span>
+          <span class="brand__sub">Astronomy Experience Platform</span>
+        </span>
+      </a>
+
+      <!-- Portal Mode Switcher (Matching Blueprint Slide 2) -->
+      <div class="portal-switch" id="portalSwitch" title="Switch Portal Mode (Matches Enterprise Architecture Slide 2)">
+        <a href="#/" class="ps-btn active" data-portal="customer">🔭 Stargazer</a>
+        <a href="#/partner" class="ps-btn" data-portal="partner">🏢 Partner Portal</a>
+        <a href="#/admin" class="ps-btn" data-portal="admin">📊 Admin & Cloud</a>
+      </div>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#/" data-route="home">Home</a>
+        <a href="#/explore" data-route="explore">Experiences</a>
+        <a href="#/observatories" data-route="observatories">Observatories</a>
+        <a href="#/telescopes" data-route="telescopes">Telescopes</a>
+        <a href="#/events" data-route="events">Events</a>
+        <a href="#/architecture" data-route="architecture">Architecture</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Search" data-icon="search"></button>
+        <button class="icon-btn" id="wishBtn" aria-label="Wishlist" data-icon="heart"><span class="badge-count" id="wishCount" hidden>0</span></button>
+        <a href="#/bookings" class="icon-btn" aria-label="My Bookings" title="My Bookings" data-icon="ticket"></a>
+        <button class="btn btn--ghost btn--sm" id="loginBtn">Login</button>
+        <a href="#/explore" class="btn btn--primary btn--sm nav__cta"><span data-icon="sparkle"></span>Book Now</a>
+        <button class="icon-btn nav__burger" id="burgerBtn" aria-label="Open menu" data-icon="menu"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu__panel">
+      <div class="mobile-menu__head">
+        <span class="brand__name">UNCLE TOM</span>
+        <button class="icon-btn" id="closeMenuBtn" aria-label="Close menu" data-icon="close"></button>
+      </div>
+      <nav class="mobile-menu__links">
+        <div class="mobile-portal-switch">
+          <a href="#/" class="ps-btn active" data-portal="customer">🔭 Customer</a>
+          <a href="#/partner" class="ps-btn" data-portal="partner">🏢 Partner</a>
+          <a href="#/admin" class="ps-btn" data-portal="admin">📊 Admin</a>
+        </div>
+        <a href="#/" data-route="home"><span data-icon="home"></span>Home</a>
+        <a href="#/explore" data-route="explore"><span data-icon="compass"></span>Experiences</a>
+        <a href="#/observatories" data-route="observatories"><span data-icon="dome"></span>Observatories</a>
+        <a href="#/telescopes" data-route="telescopes"><span data-icon="telescope"></span>Telescopes</a>
+        <a href="#/events" data-route="events"><span data-icon="calendar"></span>Events</a>
+        <a href="#/bookings" data-route="bookings"><span data-icon="ticket"></span>My Bookings</a>
+        <a href="#/architecture" data-route="architecture"><span data-icon="layers"></span>Architecture Blueprint</a>
+      </nav>
+      <div class="mobile-menu__foot">
+        <a href="#/explore" class="btn btn--primary btn--block">Book an Experience</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= APP VIEW ================= -->
+  <main id="app" tabindex="-1"></main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="#/" class="brand">
+          <span class="brand__text">
+            <span class="brand__name">UNCLE TOM</span>
+            <span class="brand__sub">Astronomy Experience Platform</span>
+          </span>
+        </a>
+        <p>A single digital marketplace for premium observatories, powerful telescopes, astronomy events, and guided stargazing experiences.</p>
+        <div class="footer__badges">
+          <span class="tag tag--ok">● AWS Cloud Native</span>
+          <span class="tag">Apache Kafka</span>
+          <span class="tag">Spring Boot 3.x</span>
+        </div>
+      </div>
+      <div>
+        <h4>Portals & Experience</h4>
+        <a href="#/explore">Explore Experiences</a>
+        <a href="#/observatories">Observatories</a>
+        <a href="#/telescopes">Telescopes</a>
+        <a href="#/events">Astronomy Events</a>
+      </div>
+      <div>
+        <h4>Platform Management</h4>
+        <a href="#/partner">🏢 Observatory Partner Portal</a>
+        <a href="#/admin">📊 Enterprise Admin Dashboard</a>
+        <a href="#/architecture">📐 Architecture Blueprint (Slides)</a>
+        <a href="#/bookings">🎟️ Verified E-Tickets</a>
+      </div>
+      <div>
+        <h4>Technology & Standards</h4>
+        <a href="#/architecture">AWS EKS Microservices</a>
+        <a href="#/architecture">Real-time Weather & Moon Engine</a>
+        <a href="#/architecture">Clear-Sky Guarantee Policy</a>
+        <a href="#/architecture">12-Month Roadmap</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <span>© 2026 Uncle Tom Astronomy Experience Platform. Enterprise Architecture Demo Prototype.</span>
+      <span class="footer__links-clean">
+        <a href="#/">Customer</a> · <a href="#/partner">Partner</a> · <a href="#/admin">Admin</a> · <a href="#/architecture">Blueprint</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- ================= OVERLAYS ================= -->
+  <div class="overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-modal glass">
+      <div class="search-modal__bar">
+        <span data-icon="search"></span>
+        <input id="globalSearch" type="text" placeholder="Search experiences, observatories, telescopes, events…" autocomplete="off" />
+        <kbd>ESC</kbd>
+      </div>
+      <div class="search-modal__results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <div class="drawer" id="wishDrawer" aria-hidden="true">
+    <div class="drawer__panel glass">
+      <div class="drawer__head">
+        <h3><span data-icon="heart"></span> Your Wishlist</h3>
+        <button class="icon-btn" data-close-drawer aria-label="Close" data-icon="close"></button>
+      </div>
+      <div class="drawer__body" id="wishList"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="modal" aria-hidden="true">
+    <div class="modal glass" id="modalContent"></div>
+  </div>
+
+  <!-- AI Stargazing Assistant (Slide 11/12 of Blueprint) -->
+  <div class="ai-widget" id="aiWidget">
+    <button class="ai-toggle-btn" id="aiToggleBtn" aria-label="Open AI Astronomy Assistant">
+      <span class="ai-pulse"></span>
+      <span class="ai-icon">✨</span>
+      <span class="ai-btn-text">Ask Stargazer AI</span>
+    </button>
+    <div class="ai-chat-window glass" id="aiChatWindow">
+      <div class="ai-chat-header">
+        <div class="ai-avatar">✨</div>
+        <div>
+          <b>Uncle Tom AI Guide</b>
+          <small>OpenAI Astronomy Engine · Online</small>
+        </div>
+        <button class="icon-btn icon-btn--sm" id="aiCloseBtn" aria-label="Close AI" data-icon="close"></button>
+      </div>
+      <div class="ai-chat-body" id="aiChatBody">
+        <div class="ai-msg ai-msg--bot">
+          <p>Hello! I am your <b>Uncle Tom Astronomy Assistant</b> 🌌 Ask me anything about telescopes, weather conditions, or booking the best dark-sky spot!</p>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <small class="muted">Popular questions:</small>
+          <button class="ai-chip" data-faq="0">🔭 Best telescope for Saturn's rings?</button>
+          <button class="ai-chip" data-faq="1">🌌 Best time to see Milky Way in Ladakh?</button>
+          <button class="ai-chip" data-faq="2">⭐ What is a Bortle Class 1 sky?</button>
+          <button class="ai-chip" data-faq="3">🛡️ How does Clear-Sky Guarantee work?</button>
+        </div>
+      </div>
+      <form class="ai-chat-input" id="aiForm">
+        <input type="text" id="aiInput" placeholder="Ask about telescopes, moon phases, places…" autocomplete="off" />
+        <button type="submit" class="btn btn--primary btn--sm" aria-label="Send" data-icon="arrowRight"></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Demo Presentation Guide Floating Button -->
+  <div class="demo-guide" id="demoGuide">
+    <button class="demo-guide__toggle" id="demoToggle" aria-label="Open presentation demo walkthrough">
+      <span data-icon="play"></span>
+      <span>Demo Guide</span>
+    </button>
+    <div class="demo-guide__panel glass" id="demoPanel"></div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/pages.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

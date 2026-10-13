@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uncle Tom — Final Project Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070913;
+      --bg-card: rgba(18, 22, 48, 0.65);
+      --border: rgba(148, 163, 255, 0.16);
+      --border-accent: rgba(167, 139, 250, 0.35);
+      --text: #eef0ff;
+      --muted: #9aa0c3;
+      --violet: #8b5cf6;
+      --cyan: #22d3ee;
+      --gold: #f5d48a;
+      --ok: #34d399;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-heading: 'Sora', 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: radial-gradient(1000px 600px at 80% -10%, rgba(139, 92, 246, 0.15), transparent 70%),
+                  radial-gradient(800px 500px at 10% 30%, rgba(34, 211, 238, 0.1), transparent 70%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrapper {
+      max-width: 1040px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .doc-header {
+      background: linear-gradient(135deg, rgba(30, 36, 78, 0.7), rgba(12, 15, 38, 0.85));
+      border: 1px solid var(--border-accent);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 32px;
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      position: relative;
+    }
+    .doc-header__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid var(--border-accent);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 2.4rem;
+      line-height: 1.15;
+      margin: 0 0 10px;
+      background: linear-gradient(120deg, #fff 20%, #a78bfa 60%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .doc-header p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin: 0 0 24px;
+      max-width: 720px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .meta-item small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 3px;
+    }
+    .meta-item strong {
+      font-size: 14px;
+      color: #fff;
+    }
+    .meta-item a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+    .meta-item a:hover {
+      text-decoration: underline;
+    }
+    .actions-bar {
+      display: flex;
+      gap: 12px;
+      margin: 24px 0 32px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn--primary {
+      background: linear-gradient(135deg, var(--violet), #4f46e5);
+      color: #fff;
+      box-shadow: 0 10px 25px -8px rgba(139, 92, 246, 0.6);
+    }
+    .btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px -6px rgba(139, 92, 246, 0.8);
+    }
+    .btn--ghost {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .btn--ghost:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--cyan);
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+    }
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 1.55rem;
+      margin: 0 0 16px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin: 24px 0 12px;
+      color: var(--cyan);
+    }
+    p, li {
+      color: #d1d5f0;
+      line-height: 1.7;
+    }
+    ul, ol {
+      padding-left: 22px;
+      margin: 12px 0 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    td strong {
+      color: #fff;
+    }
+    pre {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #93c5fd;
+      line-height: 1.55;
+    }
+    code {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--cyan);
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tag--ok { background: rgba(52, 211, 153, 0.18); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+    .tag--warn { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .portal-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .portal-box h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .roadmap-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .roadmap-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .roadmap-card--active {
+      border-color: var(--ok);
+      background: rgba(52, 211, 153, 0.05);
+    }
+    .roadmap-card small {
+      color: var(--cyan);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 11px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .roadmap-card h5 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: #fff;
+    }
+    .doc-footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media print {
+      body {
+        background: #fff;
+        color: #111;
+        font-size: 12pt;
+      }
+      .actions-bar { display: none; }
+      .doc-header, .card, pre {
+        background: #fff;
+        border: 1px solid #ddd;
+        box-shadow: none;
+        color: #111;
+      }
+      h1, h2, h3, h4, strong { color: #000 !important; }
+      p, li, td { color: #333 !important; }
+      code, pre { color: #0550ae !important; background: #f6f8fa !important; border-color: #d0d7de !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- Header Card -->
+    <header class="doc-header">
+      <div class="doc-header__badge">✦ Official Project Architecture & Deliverable</div>
+      <h1>UNCLE TOM — Final Project Documentation</h1>
+      <p>A comprehensive architectural, functional, and deployment specification for the world's premier astronomy and stargazing aggregator platform.</p>
+      
+      <div class="meta-grid">
+        <div class="meta-item">
+          <small>Lead Developer</small>
+          <strong>Mahammad Althaf Syed</strong>
+        </div>
+        <div class="meta-item">
+          <small>Document Version</small>
+          <strong>v1.0 (Production Blueprint)</strong>
+        </div>
+        <div class="meta-item">
+          <small>GitHub Repository</small>
+          <strong><a href="https://github.com/MahammadAlthaf2002/uncle-tom-astronomy" target="_blank">uncle-tom-astronomy ↗</a></strong>
+        </div>
+        <div class="meta-item">
+          <small>Active Local Server</small>
+          <strong><a href="http://localhost:3000" target="_blank">http://localhost:3000 ↗</a></strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Quick Action Bar -->
+    <div class="actions-bar">
+      <button class="btn btn--primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+      <a href="http://localhost:3000" target="_blank" class="btn btn--ghost">🚀 Open Live Localhost (Port 3000)</a>
+      <a href="https://github.com/MahammadAlthaf2002/uncle-tom-astronomy" target="_blank" class="btn btn--ghost">📦 View Source Code on GitHub</a>
+    </div>
+
+    <!-- Section 1 -->
+    <section class="card">
+      <h2>1. Executive Summary & Concept</h2>
+      <p><b>Uncle Tom</b> is an enterprise-grade digital marketplace designed to unlock astronomical tourism, luxury stargazing retreats, and telescope access worldwide. The platform enables curious travelers, astrophotographers, and scientific observatories to connect through a verified reservation engine backed by live sky-condition telemetry.</p>
+      <p>Unlike standard tourism platforms, astronomy tourism is heavily dependent on atmospheric visibility, lunar phases, and specialized optical instrumentation. Uncle Tom bridges this technological gap with:</p>
+      <ul>
+        <li><b>Bortle Class 1-3 Dark Sky Destinations:</b> Curated locations with pristine night skies (Hanle in Ladakh, Atacama Desert, Canary Islands, Mauna Kea, Thar Desert, and the Australian Outback).</li>
+        <li><b>Real-Time Atmospheric Seeing Telemetry:</b> Cloud coverage, seeing indices (arcseconds), and moon illumination calculation.</li>
+        <li><b>Clear-Sky Guarantee:</b> Automated, zero-friction rescheduling if cloud cover exceeds 40%.</li>
+      </ul>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="card">
+      <h2>2. Three-Tier Multi-Portal Architecture (Slide 2 Blueprint)</h2>
+      <p>Uncle Tom implements a unified ecosystem serving three core stakeholder groups:</p>
+      
+      <div class="portal-grid">
+        <div class="portal-box">
+          <h4>🔭 1. Customer Experience Portal</h4>
+          <p>Discovers stargazing experiences, compares telescope focal lengths, verifies live weather forecasts, and reserves slots via a 5-step checkout flow resulting in verified SVG QR e-tickets.</p>
+          <span class="tag tag--ok">Live in Demo (Route #/)</span>
+        </div>
+        <div class="portal-box">
+          <h4>🏢 2. Observatory Partner Portal</h4>
+          <p>Dedicated dashboard for facilities (e.g., Hanle Dark Sky Reserve, Ladakh). Manages tonight's capacity roster, telescope health diagnostics, and automated bank settlements.</p>
+          <span class="tag tag--ok">Live in Demo (Route #/partner)</span>
+        </div>
+        <div class="portal-box">
+          <h4>📊 3. Enterprise Admin & Cloud</h4>
+          <p>Global oversight of AWS EKS microservice health, Apache Kafka event streams (e.g. <code>booking.created</code>, <code>payment.success</code>), and marketplace revenue analytics.</p>
+          <span class="tag tag--ok">Live in Demo (Route #/admin)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="card">
+      <h2>3. Cloud Infrastructure & Microservices Topology (AWS)</h2>
+      <p>The system is designed for high availability, zero single points of failure, and resilience during astronomical peak events (meteor showers and eclipses):</p>
+      <pre>
+  [Clients: Web / PWA / Mobile iOS & Android]
+                    │
+                    ▼
+  [Route 53 Global DNS] ──► [AWS CloudFront CDN + AWS WAF]
+                                    │
+                                    ▼
+                [Envoy / Kong API Gateway (mTLS & Rate Limiting)]
+                                    │
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+  ┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+  │ Booking Pods  │           │ Weather & Sky │           │ Payments Pods │
+  │ (Spring Boot) │           │ (Node/Python) │           │ (Stripe/Razor)│
+  └───────┬───────┘           └───────┬───────┘           └───────┬───────┘
+          │                           │                           │
+          └───────────────────────────┼───────────────────────────┘
+                                      │
+                                      ▼
+                    [Amazon MSK (Apache Kafka Event Bus)]
+                                      │
+          ┌───────────────────────────┼───────────────────────────┐
+          ▼                           ▼                           ▼
+  ┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+  │ Notification  │           │ AI Assistant  │           │ Partner Fleet │
+  │ (Push/SMS/WA) │           │ (OpenAI Engine│           │ (ASCOM/INDI)  │
+  └───────────────┘           └───────────────┘           └───────────────┘
+                                      │
+                                      ▼
+              [Data Tier: Aurora PostgreSQL (Multi-AZ) + Redis Cluster]
+      </pre>
+
+      <h3>Key Infrastructure Components</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Technology</th>
+            <th>Role & Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Edge & CDN</strong></td>
+            <td>AWS CloudFront + Route 53 + WAF</td>
+            <td>Edge caching for high-res galaxy images, DDoS mitigation, sub-50ms latency.</td>
+          </tr>
+          <tr>
+            <td><strong>Compute / Pods</strong></td>
+            <td>Amazon EKS (Kubernetes 1.30+)</td>
+            <td>Autoscaling microservices deployed across 3 Availability Zones.</td>
+          </tr>
+          <tr>
+            <td><strong>Event Streaming</strong></td>
+            <td>Apache Kafka (Amazon MSK)</td>
+            <td>Decoupled asynchronous event pipeline for instant ticketing & alerts.</td>
+          </tr>
+          <tr>
+            <td><strong>Relational DB</strong></td>
+            <td>Amazon Aurora PostgreSQL</td>
+            <td>ACID compliance for user accounts, reservations, and payment logs.</td>
+          </tr>
+          <tr>
+            <td><strong>In-Memory Cache</strong></td>
+            <td>Redis Cluster (Amazon ElastiCache)</td>
+            <td>Sub-millisecond slot lock and weather forecasting cache.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="card">
+      <h2>4. External API Integrations</h2>
+      <ul>
+        <li><strong>NASA Open APIs (APOD & NeoWs):</strong> Indexes real-time astronomical imagery and orbital tracks for Near-Earth Objects.</li>
+        <li><strong>Open-Meteo & Seeing Models:</strong> Computes high-altitude seeing index (arcseconds), cloud density, and transparency.</li>
+        <li><strong>Escrow Processing (Razorpay Route / Stripe Connect):</strong> Facilitates instant split-settlements and automated partner commission handling.</li>
+        <li><strong>OpenAI Astronomy Engine:</strong> Drives the conversational <em>Ask Stargazer AI</em> assistant widget with domain-expert sky advice.</li>
+      </ul>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="card">
+      <h2>5. Core Functional Modules & User Journeys</h2>
+      <h3>Customer Flow (5-Step Checkout)</h3>
+      <ol>
+        <li><strong>Review Experience:</strong> Personalize with amenities (e.g., Heated Blanket, Hot Cocoa, Astro Portrait).</li>
+        <li><strong>Schedule & Slots:</strong> Dynamic slot picker with real-time seat availability and sky quality badge.</li>
+        <li><strong>Guest Details:</strong> Input lead guest and special requests (with 1-click test autofill).</li>
+        <li><strong>Secure Payment:</strong> Credit/Debit card, UPI, or Net Banking with live 3D card preview.</li>
+        <li><strong>Instant Confirmation:</strong> Generates booking ID, QR code, downloadable voucher, and <code>.ics</code> calendar file.</li>
+      </ol>
+
+      <h3>Telescope Fleet Comparison</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Telescope</th>
+            <th>Type</th>
+            <th>Aperture</th>
+            <th>Focal Length</th>
+            <th>Best Suited For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Obsession 30"</strong></td>
+            <td>Dobsonian Reflector</td>
+            <td>762 mm (30 in)</td>
+            <td>3,048 mm (f/4.0)</td>
+            <td>Faint Deep-Sky Galaxies & Nebulae</td>
+          </tr>
+          <tr>
+            <td><strong>PlaneWave CDK24</strong></td>
+            <td>Corrected Dall-Kirkham</td>
+            <td>610 mm (24 in)</td>
+            <td>3,962 mm (f/6.5)</td>
+            <td>Research-grade Astrophotography</td>
+          </tr>
+          <tr>
+            <td><strong>Celestron EdgeHD 14"</strong></td>
+            <td>Aplanatic Schmidt-Cassegrain</td>
+            <td>356 mm (14 in)</td>
+            <td>3,910 mm (f/11)</td>
+            <td>High-contrast Lunar & Planetary Viewing</td>
+          </tr>
+          <tr>
+            <td><strong>Takahashi FSQ-106</strong></td>
+            <td>Fluorite Petzval Refractor</td>
+            <td>106 mm (4.2 in)</td>
+            <td>530 mm (f/5.0)</td>
+            <td>Wide-Field Astrophotography</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="card">
+      <h2>6. 12-Month Enterprise Implementation Roadmap</h2>
+      <div class="roadmap-list">
+        <div class="roadmap-card roadmap-card--active">
+          <small>Phase 1 (Months 1–3)</small>
+          <h5>Interactive Prototype & UX Validation</h5>
+          <span class="tag tag--ok">✅ Completed</span>
+          <p style="font-size: 12px; margin-top: 6px;">All 3 portals, 5-step booking flow, AI widget, and responsive design.</p>
+        </div>
+        <div class="roadmap-card">
+          <small>Phase 2 (Months 4–6)</small>
+          <h5>Core Microservices & Escrow</h5>
+          <span class="tag tag--warn">⏳ Upcoming</span>
+          <p style="font-size: 12px; margin-top: 6px;">Spring Boot on AWS EKS, Aurora Multi-AZ, and partner onboarding.</p>
+        </div>
+        <div class="roadmap-card">
+          <small>Phase 3 (Months 7–9)</small>
+          <h5>IoT Telescopes & Weather Engine</h5>
+          <span class="tag">📋 Planned</span>
+          <p style="font-size: 12px; margin-top: 6px;">ASCOM/INDI drivers, real-time seeing alerts, and SMS/WhatsApp notifications.</p>
+        </div>
+        <div class="roadmap-card">
+          <small>Phase 4 (Months 10–12)</small>
+          <h5>Global Scale & Native Apps</h5>
+          <span class="tag">📋 Planned</span>
+          <p style="font-size: 12px; margin-top: 6px;">Native iOS/Android apps with AR star maps, ISO-27001 compliance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="card">
+      <h2>7. Verification & Production Readiness</h2>
+      <ul>
+        <li><strong>Zero Syntax Errors:</strong> Verified with <code>node --check</code> across all JavaScript modules.</li>
+        <li><strong>Fixed Port 3000 Daemon:</strong> Background server running reliably with <code>0.0.0.0:3000</code> binding to avoid port collisions.</li>
+        <li><strong>GitHub Synchronized:</strong> Live repository actively tracked at <a href="https://github.com/MahammadAlthaf2002/uncle-tom-astronomy" target="_blank" style="color: var(--cyan);">https://github.com/MahammadAlthaf2002/uncle-tom-astronomy</a>.</li>
+        <li><strong>Print-Ready:</strong> This documentation file is styled with high-contrast print rules for instant export to PDF via browser print (<code>Ctrl + P</code>).</li>
+      </ul>
+    </section>
+
+    <footer class="doc-footer">
+      © 2026 Uncle Tom — Astronomy Experience Platform. All rights reserved. Prepared by Mahammad Althaf Syed.
+    </footer>
+
+  </div>
+</body>
+</html>

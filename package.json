@@ -1,0 +1,18 @@
+{
+  "name": "uncle-tom-astronomy",
+  "version": "1.0.0",
+  "description": "Uncle Tom — Premium Stargazing & Astronomy Experience Marketplace Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "astronomy",
+    "stargazing",
+    "observatory",
+    "marketplace",
+    "dark-sky"
+  ],
+  "author": "Mahammad Althaf Syed",
+  "license": "ISC"
+}
